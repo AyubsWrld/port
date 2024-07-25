@@ -1,0 +1,66 @@
+/* ButtonComponent.css */
+.ButtonComponent {
+  position: fixed; /* Fixes the position relative to the viewport */
+  bottom: 0; /* Positions the button at the bottom */
+  left: 50%; /* Centers the button horizontally */
+  transform: translateX(-50%); /* Centers the button correctly */
+  margin: 20px; /* Adds spacing from the bottom */
+  z-index: 10; /* Ensures it appears above other content */
+  display: flex;
+  justify-content: center; /* Center the .mouse element */
+}
+
+.ButtonComponent .Scroll {
+  height: 75px;
+  width: 265px;
+  border-style: none;
+  border-radius: 30px;
+  color: white; /* Ensure text color is white */
+  background-color: #151515;
+  font-family: Inter, sans-serif; /* Add a fallback font */
+  font-weight: 800;
+  font-size: 18px; /* Ensure font size is appropriate */
+  opacity: 1; /* Ensure the button is visible */
+  transform: translateY(0px); /* Ensure the button starts in its final position */
+  animation: fadeInTwo 4000ms cubic-bezier(0.070, 0.615, 0.235, 0.890) forwards;
+  transition: background-color 0.3s; /* Ensure smooth color transition */
+  display: flex;
+  align-items: center; /* Center text vertically */
+  justify-content: center; /* Center text horizontally */
+  gap : 18px ; 
+}
+
+.ButtonComponent .Scroll:hover {
+  background-color: red; /* Example hover color */
+}
+
+/* Mouse Animation Styles */
+.ButtonComponent .mouse {
+  width: 25px;
+  height: 45px;
+  border: 3px solid white;
+  border-radius: 60px;
+  position: relative;
+  margin-left: 20px; /* Spacing between the button and the mouse */
+}
+
+.ButtonComponent .mouse::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-25%);
+  background-color: white;
+  border-radius: 50%;
+  opacity: 1;
+  animation: wheel 2s infinite;
+}
+
+@keyframes wheel {
+  to {
+    opacity: 0;
+    top: 60px;
+  }
+}

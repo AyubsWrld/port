@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@react-spring/three": "^9.7.4",
+    "d3-ease": "^3.0.1"
+  }
+}

@@ -1,0 +1,17 @@
+
+
+.fade-out{
+  opacity : 1; 
+  animation : fadeOut 300ms ease-in forwards ; 
+}
+
+
+@keyframes fadeOut{
+  from{
+    opacity : 1; 
+
+  }
+  to{
+    opacity : 0; 
+  }
+}

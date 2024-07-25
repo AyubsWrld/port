@@ -1,0 +1,57 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.Hud {
+  width: 100%;
+  position: fixed; /* Fixed position to stay at the top */
+  top: 0;
+  left: 0;
+  z-index: 10; /* Higher z-index to appear above Canvas */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.Hud .ColumnOne {
+  /* Optional: Add styles for ColumnOne if needed */
+}
+
+.Hud .ColumnOne .BuildWithMe {
+  height: 60px;
+  width: 200px;
+  border-style: none;
+  border-radius: 30px;
+  color: white;
+  background-color: #151515;
+  font-family: Inter, sans-serif; /* Add a fallback font */
+  font-weight: 800;
+  font-size: 18px;
+  margin: 36px;
+  opacity: 1; /* Ensure the button is visible */
+  transform: translateY(0px); /* Ensure the button starts in its final position */
+  animation: fadeInTwo 4000ms cubic-bezier(0.070, 0.615, 0.235, 0.890) forwards;
+  transition: background-color 0.3s; /* Ensure smooth color transition */
+}
+
+.Logo {
+  height: 60px;
+  margin: 36px;
+  opacity: 1; /* Ensure the logo is visible */
+  transform: translateY(0px); /* Ensure the logo starts in its final position */
+  animation: fadeInTwo 2000ms cubic-bezier(0.070, 0.615, 0.235, 0.890) forwards;
+}
+
+@keyframes fadeInTwo {
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.Hud .ColumnOne .BuildWithMe:hover {
+  background-color: red;
+}
+

@@ -1,0 +1,90 @@
+.Overarching {
+  z-index : 1 ;
+  background-color: #070707;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px 46px;
+  border-radius: 32px;
+  animation: panLeft 600ms cubic-bezier(0.070, 0.815, 0.190, 0.890) forwards;
+}
+
+.Overarching .Subtext {
+  color: white;
+  font-family: Inter;
+  font-size: 20px;
+  animation: fadeInText 600ms cubic-bezier(0.070, 0.815, 0.190, 0.890) forwards;
+  animation-delay : 100ms ; 
+  opacity: 0; /* Start with opacity 0 */
+}
+
+.Techstack {
+  padding-top: 44px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  animation: fadeInText 600ms cubic-bezier(0.070, 0.815, 0.190, 0.890) forwards;
+  animation-delay : 200ms ; 
+  opacity: 0; /* Start with opacity 0 */
+}
+
+.Techstack .Rectangle {
+  width: 150px;
+  height: 150px;
+  background-color: #151515;
+  border-radius: 22px;
+  animation: fadeInText 600ms cubic-bezier(0.070, 0.815, 0.190, 0.890) forwards;
+  animation-delay : 300ms ; 
+  opacity: 0; /* Start with opacity 0 */
+}
+
+.Overarching .link {
+  margin-top: 44px;
+  height: 54px;
+  width: 200px;
+  border-style: none;
+  border-radius: 30px;
+  color: #151515; /* Text color */
+  background-color: white;
+  font-family: Inter, sans-serif; /* Font family */
+  font-weight: 600;
+  font-size: 16px; /* Font size */
+  transition: all 300ms ease-in; /* Apply transition to all properties */ 
+  animation: fadeInText 600ms cubic-bezier(0.070, 0.815, 0.190, 0.890) forwards;
+  animation-delay : 400ms ; 
+  opacity: 0; /* Start with opacity 0 */
+}
+
+.Overarching .link:hover {
+  border-radius: 42px; /* Adjust border-radius on hover */
+  background-color: #f0f0f0; /* Optional: Change background color on hover */
+}
+
+@keyframes fadeInText {
+  from {
+    transform: translateX(15px); /* Start position */
+    opacity: 0; /* Start with opacity 0 */
+  }
+  to {
+    transform: translateX(0px); /* End position */
+    opacity: 1; /* End with opacity 1 */
+  }
+}
+
+@keyframes panLeft {
+  from {
+    transform: translateX(15px); /* Start position */
+  }
+  to {
+    transform: translateX(0px); /* End position */
+  }
+}
+
+.Overarching .Header {
+  color: white;
+  font-family: Inter;
+  font-size: 30px;
+  padding-bottom: 18px;
+  animation: fadeInText 600ms cubic-bezier(0.070, 0.815, 0.190, 0.890) forwards;
+}
+
