@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect  , useRef} from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import BezierEasing from 'bezier-easing';
 
 const easing = BezierEasing(0.125, 0.545, 0.070, 0.910);
 
+
 export default function Game(props) {
   const { scene } = useGLTF('./Cartridge.glb'); 
 
 
+  const useIncrement = useRef(0);
+  const boolArray = [true , false, false];
+  
+  function isUsed() {
+      if (!boolArray[useIncrement.current % 3]) {
+          useIncrement.current++;
+          return 500;
+      }
+      useIncrement.current++;
+      return 3000;
+  }
+
+  useEffect(() => {
+    console.log(props.coordinates) ; 
+  } , []) ; 
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
 
@@ -16,11 +32,11 @@ export default function Game(props) {
   const { position, rotation } = useSpring({
     from: { position: [-10, 4, -0.5], rotation: [-0.8, 4, -0.3] },
     to: { 
-      position: clicked ? [-0.9 , 3.5, -0.3] : [-0.9, 3.5, -0.3],
-      rotation: hovered ? [-0.5, 0.14, 0.3] : [-0.5, 0.3, 0.3]
+      position: props.coordinates,
+      rotation: props.rotationalCoordinates  
     },
     config: {
-      duration: 3000,
+      duration: isUsed(),
       easing: t => easing(t)
     }
   });
@@ -43,8 +59,8 @@ export default function Game(props) {
       object={scene}
       position={position}
       rotation={rotation}
-      onPointerOver={handlePointerOver}
-      onPointerOut={handlePointerOut}
+      // onPointerOver={handlePointerOver}
+      // onPointerOut={handlePointerOut}
       onClick={handleClick}
       {...props}
     />
