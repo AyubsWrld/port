@@ -12,24 +12,57 @@ import Hud from './Hud.jsx';
 import './App.css';
 
 function App() {
+
   var internalCount = useRef(0) ; 
   const [showAnimation, setShowAnimation] = useState(true);
+  const [polars, setPolars] = useState([-0.2, -0.2, 0]);
+  const [showDescription  , setShowDescription ] = useState(false) ; 
+  var polarInternalCount = useRef(0) ; 
   const handleAnimationComplete = () => {
     setShowAnimation(false);
   };
+
+  useEffect(() => {
+    window.addEventListener("wheel" , wheelDown)
+  } , []) ; 
+
 
   const componentMap = {
     0 : GameTwo, 
     1 : Game, 
   } ; 
 
+  const possiblePolars = {
+    0 : [-0.2, -0.2, 0], 
+    1 : [-3 ,  -0.2, 0], 
+  } ; 
+  
+
+
   const [dynamicComponent, setDynamicComponent] = useState(0) ; 
-  function handleClick() {
+  function wheelDown() {
+    setTimeout(() => {
     internalCount.current++;
-    setDynamicComponent(internalCount.current % Object.keys(componentMap).length);
-    console.log(internalCount.current % Object.keys(componentMap).length) ; 
-    console.log(componentMap[internalCount.current % Object.keys(componentMap).length]) ; 
+      setDynamicComponent(internalCount.current % Object.keys(componentMap).length);
+      console.log(internalCount.current % Object.keys(componentMap).length) ; 
+      console.log(componentMap[internalCount.current % Object.keys(componentMap).length]) ;  
+    }, 0);
   }
+
+  function handleClick() {
+    polarInternalCount.current++;
+    const newPolarIndex = polarInternalCount.current % Object.keys(possiblePolars).length;
+    setPolars(possiblePolars[newPolarIndex]);
+  
+    if (showDescription) {
+      setShowDescription(false);
+    } else {
+      setTimeout(() => {
+        setShowDescription(true);
+      }, 150);
+    }
+  }
+
   console.log(internalCount.current % Object.keys(componentMap).length) ; 
   const DynamicComponent = componentMap[dynamicComponent] ; 
   return (
@@ -79,7 +112,7 @@ function App() {
           /> 
 
 
-          <Cartridge polarCoordinates = {[[-0.2, -0.2, 0] , [-0.2, -0.2, 0]] }/>
+          <Cartridge polarCoordinates = {polars}/>
 
           {DynamicComponent && <DynamicComponent />}
 
@@ -92,11 +125,11 @@ function App() {
           </EffectComposer>
         </Canvas>
         <div className='Button-Container'>
-          <button onClick={() => handleClick() } className='SwapCart'>
+          <button onClick={() => {handleClick()} } className='SwapCart'>
             Swap Cart
           </button>
         </div>
-      {/* {!showAnimation && <DescriptionComponent/>}  */}
+      {!showAnimation && showDescription && <DescriptionComponent/>} 
       </div>}
     </div>
   );

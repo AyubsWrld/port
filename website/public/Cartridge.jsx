@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import BezierEasing from 'bezier-easing'; // Import bezier-easing library
 
 const easing = BezierEasing(0.125, 0.545, 0.070, 0.910);
 
-export default function Cartridge({ polarCoordinates = [[-0.2, -0.2, 0], [-4, -0.2, 0]], onClick, ...props }) {
+export default function Cartridge({ polarCoordinates = [-0.2, -0.2, 0], onClick, ...props }) {
+
+  useEffect(() => {
+    console.log("polars changed")
+  } , [polarCoordinates]) ;
+
   const { scene } = useGLTF('./Test.glb'); // Adjust path if needed
 
   const [hovered, setHovered] = useState(false);
@@ -29,7 +34,7 @@ export default function Cartridge({ polarCoordinates = [[-0.2, -0.2, 0], [-4, -0
   const { position, rotation } = useSpring({
     from: { position: [-0.2, -4, 0], rotation: [-0.8, 1, -0.3] },
     to: {
-      position: clicked ? polarCoordinates[0] : polarCoordinates[1],
+      position: clicked ? polarCoordinates : polarCoordinates,
       rotation: hovered ? [-0.5, 0.2, 0.3] : [-0.5, 0.3, 0.3]
     },
     config: {
