@@ -26,8 +26,34 @@
   animation: fadeIn 1000ms ease-in forwards;
 }
 
+
+
+
+
+.Button-Container {
+  position: absolute;
+  bottom: 20px; /* Adjust the bottom spacing as needed */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.SwapCart {
+  height: 55px;
+  width: 200px;
+  border-style: none;
+  border-radius: 30px;
+  color: white; /* Ensure text color is white */
+  background-color: #151515;
+  font-family: Inter, sans-serif; /* Add a fallback font */
+  font-weight: 800;
+  font-size: 18px; /* Ensure font size is appropriate */
+  opacity: 1; /* Ensure the button is visible */
+}
+
 @keyframes fadeIn {
   to {
     opacity: 1;
   }
 }
+

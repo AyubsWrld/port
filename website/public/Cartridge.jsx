@@ -3,13 +3,13 @@ import { useGLTF } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import BezierEasing from 'bezier-easing'; // Import bezier-easing library
 
-// Create a Bezier easing function
 const easing = BezierEasing(0.125, 0.545, 0.070, 0.910);
 
-export default function Cartridge(props) {
+export default function Cartridge({ polarCoordinates = [[-0.2, -0.2, 0], [-4, -0.2, 0]], onClick, ...props }) {
   const { scene } = useGLTF('./Test.glb'); // Adjust path if needed
 
   const [hovered, setHovered] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   const handlePointerOver = () => {
     setHovered(true);
@@ -19,15 +19,22 @@ export default function Cartridge(props) {
     setHovered(false);
   };
 
+  const handleClick = () => {
+    setClicked(prevClicked => !prevClicked);
+    if (onClick) {
+      onClick(); // Notify parent component of the click
+    }
+  };
+
   const { position, rotation } = useSpring({
-    from: { position: [0, -4, 0], rotation: [-0.8, 1, -0.3] },
+    from: { position: [-0.2, -4, 0], rotation: [-0.8, 1, -0.3] },
     to: {
-      position: hovered ? [0.2, -0.2, 0] : [0.2, -0.2, 0],
+      position: clicked ? polarCoordinates[0] : polarCoordinates[1],
       rotation: hovered ? [-0.5, 0.2, 0.3] : [-0.5, 0.3, 0.3]
     },
     config: {
       duration: 3000,
-      easing: t => easing(t) // Apply custom cubic Bezier easing
+      easing: t => easing(t)
     }
   });
 
@@ -36,12 +43,12 @@ export default function Cartridge(props) {
       object={scene}
       position={position}
       rotation={rotation}
-      onPointerOver={handlePointerOver} // Add hover event handler
-      onPointerOut={handlePointerOut}   // Add hover event handler
+      onPointerOver={handlePointerOver}
+      onPointerOut={handlePointerOut}
+      onClick={handleClick}
       {...props}
     />
   );
 }
 
-useGLTF.preload('./Test.glb'); // Adjust path if needed
-
+useGLTF.preload('./Test.glb'); // Preload GLTF model

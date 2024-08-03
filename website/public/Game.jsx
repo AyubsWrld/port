@@ -8,15 +8,15 @@ const easing = BezierEasing(0.125, 0.545, 0.070, 0.910);
 export default function Game(props) {
   const { scene } = useGLTF('./Cartridge.glb'); 
 
-  // State to trigger the animation on hover
+
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
 
-  // Define the spring animation for position and rotation with easing
+
   const { position, rotation } = useSpring({
     from: { position: [-10, 4, -0.5], rotation: [-0.8, 4, -0.3] },
     to: { 
-      position: clicked ? [-0.4 , 3.5, -0.3] : [-0.4, 3.5, -0.3],
+      position: clicked ? [-0.9 , 3.5, -0.3] : [-0.9, 3.5, -0.3],
       rotation: hovered ? [-0.5, 0.14, 0.3] : [-0.5, 0.3, 0.3]
     },
     config: {
@@ -25,7 +25,7 @@ export default function Game(props) {
     }
   });
 
-  // Event handlers for hover events
+
   const handlePointerOver = () => {
     setHovered(true);
   };
@@ -52,3 +52,4 @@ export default function Game(props) {
 }
 
 useGLTF.preload('./Cartridge.glb'); // Ensure the path is correct
+
