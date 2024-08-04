@@ -1,0 +1,5 @@
+1) Need to tacke logic for rending the gameboy , wheel down causes it to shift , perhaps make the animation handled
+by a parent component as opposed to seperately . 
+2) Need to change the description  , add more files and make it catered to the right cartridge . 
+3) link github and linkedIn . lets try publishing by end of monday 
+
