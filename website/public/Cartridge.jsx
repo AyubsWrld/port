@@ -1,55 +1,78 @@
-import React, { useState , useEffect , useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
-import BezierEasing from 'bezier-easing'; // Import bezier-easing library
+import * as THREE from 'three';
+import BezierEasing from 'bezier-easing';
+import Animation from '../src/assets/anims/Screen.mp4';
 
 const easing = BezierEasing(0.125, 0.545, 0.070, 0.910);
 
-export default function Cartridge({ polarCoordinates = [-0.2, -0.2, 0] , rotationalCoordinates ,  onClick, ...props }) {
-
-
+export default function Cartridge({
+  polarCoordinates = [-0.2, -0.2, 0],
+  rotationalCoordinates,
+  onClick,
+  ...props
+}) {
   const useIncrement = useRef(0);
-  const boolArray = [true , false, false];
-  
+  const boolArray = [true, false, false];
+  useEffect(() => {
+    console.log("Hello") ; 
+  } , [useIncrement])
+
   function isUsed() {
-      if (!boolArray[useIncrement.current % 3]) {
-          useIncrement.current++;
-          return 500;
-      }
+    if (!boolArray[useIncrement.current % 3]) {
       useIncrement.current++;
-      return 3000;
+      return 500;
+    }
+    useIncrement.current++;
+    return 3000;
   }
 
+  useEffect(() => {
+    console.log("polars changed");
+  }, [polarCoordinates[0]]);
 
-  useEffect(() => { console.log("polars changed");
+  const { scene, nodes, materials } = useGLTF('./Test.glb');
+  const groupRef = useRef();
 
-  } , [polarCoordinates[0]]) ;
 
-  const { scene } = useGLTF('./Test.glb'); // Adjust path if needed
+  useEffect(() => {
+    const video = document.createElement('video');
+    video.src = Animation;
+    video.crossOrigin = 'Anonymous';
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
 
-  const [hovered, setHovered] = useState(false);
-  const [clicked, setClicked] = useState(false);
+    video.addEventListener('canplaythrough', () => {
+      video.play();
+    });
 
-  const handlePointerOver = () => {
-    setHovered(true);
-  };
+    video.addEventListener('play', () => {
+      const texture = new THREE.VideoTexture(video);
+      texture.needsUpdate = true;
 
-  const handlePointerOut = () => {
-    setHovered(false);
-  };
+      // Apply the video texture to the specific mesh material
+      const targetMesh = nodes['GB_02_low_Screen']; // The name of your mesh
+      if (targetMesh) {
+        targetMesh.material.map = texture;
+        targetMesh.material.needsUpdate = true;
+      }
+    });
 
-  const handleClick = () => {
-    setClicked(prevClicked => !prevClicked);
-    if (onClick) {
-      onClick(); // Notify parent component of the click
-    }
-  };
+    // Clean up
+    return () => {
+      video.pause();
+      video.src = '';
+      video.load();
+    };
+  }, [nodes]);
 
   const { position, rotation } = useSpring({
     from: { position: [-0.2, -4, 0], rotation: [-0.8, 1, -0.3] },
     to: {
-      position:  polarCoordinates ,
-      rotation:  rotationalCoordinates
+      position: polarCoordinates,
+      rotation: rotationalCoordinates
     },
     config: {
       duration: isUsed(),
@@ -57,18 +80,15 @@ export default function Cartridge({ polarCoordinates = [-0.2, -0.2, 0] , rotatio
     }
   });
 
-
   return (
     <animated.primitive
       object={scene}
       position={position}
       rotation={rotation}
-      // onPointerOver={handlePointerOver}
-      // onPointerOut={handlePointerOut}
-      onClick={handleClick}
+      ref={groupRef}
       {...props}
     />
   );
 }
 
-useGLTF.preload('./Test.glb'); // Preload GLTF model
+useGLTF.preload('./Test.glb');

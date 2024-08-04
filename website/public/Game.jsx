@@ -41,27 +41,11 @@ export default function Game(props) {
     }
   });
 
-
-  const handlePointerOver = () => {
-    setHovered(true);
-  };
-
-  const handlePointerOut = () => {
-    setHovered(false);
-  };
-
-  const handleClick = () => {
-    setClicked(prev => !prev);
-  };
-
   return (
     <animated.primitive
       object={scene}
       position={position}
       rotation={rotation}
-      // onPointerOver={handlePointerOver}
-      // onPointerOut={handlePointerOut}
-      onClick={handleClick}
       {...props}
     />
   );
