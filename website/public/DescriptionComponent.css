@@ -23,6 +23,7 @@
   font-size: 20px;
   animation: fadeInText 600ms cubic-bezier(0.070, 0.815, 0.190, 0.890) forwards;
   animation-delay: 100ms;
+  line-height : 1.5 ; 
   opacity: 0; /* Start with opacity 0 */
 }
 
@@ -37,6 +38,7 @@
 }
 
 .Techstack .Rectangle {
+  display : flex ; 
   width: 150px;
   height: 150px;
   background-color: #151515;
@@ -44,6 +46,8 @@
   animation: fadeInText 600ms cubic-bezier(0.070, 0.815, 0.190, 0.890) forwards;
   animation-delay: 300ms;
   opacity: 0; /* Start with opacity 0 */
+  align-items : center ; 
+  justify-content : center ; 
 }
 
 .Overarching .link {
@@ -94,4 +98,8 @@
   font-size: 30px;
   padding-bottom: 18px;
   animation: fadeInText 600ms cubic-bezier(0.070, 0.815, 0.190, 0.890) forwards;
+}
+
+.Icon{
+  height : 88px ; 
 }

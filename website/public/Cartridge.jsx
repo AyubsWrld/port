@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 import BezierEasing from 'bezier-easing';
+
 import Animation from '../src/assets/anims/Screen.mp4';
 
 const easing = BezierEasing(0.125, 0.545, 0.070, 0.910);
@@ -13,20 +14,9 @@ export default function Cartridge({
   onClick,
   ...props
 }) {
-  const useIncrement = useRef(0);
-  const boolArray = [true, false, false];
-  useEffect(() => {
-    console.log("Hello") ; 
-  } , [useIncrement])
 
-  function isUsed() {
-    if (!boolArray[useIncrement.current % 3]) {
-      useIncrement.current++;
-      return 500;
-    }
-    useIncrement.current++;
-    return 3000;
-  }
+
+
 
   useEffect(() => {
     console.log("polars changed");
@@ -75,7 +65,7 @@ export default function Cartridge({
       rotation: rotationalCoordinates
     },
     config: {
-      duration: isUsed(),
+      duration: 2000 , // Use the isUsed function to determine the duration
       easing: t => easing(t)
     }
   });
