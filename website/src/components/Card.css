@@ -1,0 +1,62 @@
+.glassCard {
+  background: rgba(0, 0, 0, 0.4); 
+  backdrop-filter: blur(13px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+  height: 300px;
+  width: 300px;
+  position: relative; 
+}
+
+.background-circle {
+  height: 300px;
+  width: 300px;
+  position: absolute; 
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none; 
+}
+
+.circle,
+.circleTwo,
+.circleThree {
+  position: absolute; 
+  border-radius: 50%;
+  backdrop-filter: blur(13px);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+}
+
+.circle {
+  height: 250px;
+  width: 250px;
+  background: rgba(0, 0, 0, 0.05);
+  z-index: 1; 
+}
+
+.circleTwo {
+  height: 175px;
+  width: 175px;
+  background: rgba(0, 0, 0, 0);
+  z-index: 2; 
+}
+
+.circleThree {
+  height: 100px;
+  width: 100px;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3; 
+}
+
+.circleThree .icon {
+  height: 48px;
+  opacity: 0.2;
+}
+

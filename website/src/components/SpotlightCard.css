@@ -1,0 +1,108 @@
+
+.Card {
+  position: relative;
+}
+
+.glassCard {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(13px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  height: 300px;
+  width: 300px;
+  position: relative;
+  transition: border-color 2s ease; 
+}
+
+.glassCard:hover {
+  opacity: 0.7; 
+}
+
+.background-circle {
+  height: 300px;
+  width: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.circle,
+.circleTwo,
+.circleThree {
+  position: absolute;
+  border-radius: 50%;
+  backdrop-filter: blur(13px);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+
+}
+
+.circle {
+  height: 250px;
+  width: 250px;
+  background: rgba(0, 0, 0, 0.05);
+  z-index: 1;
+  transition: border-color 1500ms ease, opacity 0.3s ease; 
+}
+
+.circleTwo {
+  height: 175px;
+  width: 175px;
+  background: rgba(0, 0, 0, 0);
+  z-index: 2;
+  transition: border-color 1000ms ease, opacity 0.3s ease; 
+}
+
+.circleThree {
+  height: 100px;
+  width: 100px;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  transition: border-color 500ms ease, opacity 0.3s ease; 
+}
+
+.circleThree .icon {
+  height: 48px;
+  opacity: 0.2; 
+  transition: opacity 0.3s ease; 
+}
+
+.glassCard:hover .circleThree .icon {
+  opacity: 1; 
+}
+
+.glassCard:hover .circleThree {
+  border-color : white ; 
+}
+
+.glassCard:hover .circleTwo {
+  border-color : white; 
+}
+
+.glassCard:hover .circle {
+  border-color : white; 
+}
+.glassCard:hover {
+  border-color : rgba(255 , 255 , 255 , 0.4); 
+}
+
+.glow-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255 , 255, 0.3), transparent 60%);
+  opacity: var(--opacity, 0);
+  transition: opacity 0.3s ease;
+  border-radius: 22px;
+}

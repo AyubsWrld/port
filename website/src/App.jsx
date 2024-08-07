@@ -21,7 +21,7 @@ function App() {
   const [rotation, setRotation] = useState([-0.5, 0.3, 0.3]);
   const [rotationCartridge, setRotationCartridge] = useState([-0.5, 0.3, 0.3]);
   const [showDescription, setShowDescription] = useState(false);
-  const [color, setColor] = useState('radial-gradient(#000000, #0D0D0D)');
+  const [color, setColor] = useState('black');
 
   const polarInternalCount = useRef(0);
   const internalCountWheel = useRef(0);

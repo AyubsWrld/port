@@ -1,13 +1,13 @@
-/* ButtonComponent.css */
+
 .ButtonComponent {
-  position: fixed; /* Fixes the position relative to the viewport */
-  bottom: 0; /* Positions the button at the bottom */
-  left: 50%; /* Centers the button horizontally */
-  transform: translateX(-50%); /* Centers the button correctly */
-  margin: 20px; /* Adds spacing from the bottom */
-  z-index: 10; /* Ensures it appears above other content */
+  position: fixed; 
+  bottom: 0; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  margin: 20px; 
+  z-index: 10; 
   display: flex;
-  justify-content: center; /* Center the .mouse element */
+  justify-content: center; 
 }
 
 .ButtonComponent .Scroll {
@@ -15,33 +15,33 @@
   width: 265px;
   border-style: none;
   border-radius: 30px;
-  color: white; /* Ensure text color is white */
+  color: white; 
   background-color: #151515;
-  font-family: Inter, sans-serif; /* Add a fallback font */
+  font-family: Inter, sans-serif; 
   font-weight: 800;
-  font-size: 18px; /* Ensure font size is appropriate */
-  opacity: 1; /* Ensure the button is visible */
-  transform: translateY(0px); /* Ensure the button starts in its final position */
+  font-size: 18px; 
+  opacity: 1; 
+  transform: translateY(0px); 
   animation: fadeInTwo 4000ms cubic-bezier(0.070, 0.615, 0.235, 0.890) forwards;
-  transition: background-color 0.3s; /* Ensure smooth color transition */
+  transition: background-color 0.3s; 
   display: flex;
-  align-items: center; /* Center text vertically */
-  justify-content: center; /* Center text horizontally */
+  align-items: center; 
+  justify-content: center; 
   gap : 18px ; 
 }
 
 .ButtonComponent .Scroll:hover {
-  background-color: red; /* Example hover color */
+  background-color: red; 
 }
 
-/* Mouse Animation Styles */
+
 .ButtonComponent .mouse {
   width: 25px;
   height: 45px;
   border: 3px solid white;
   border-radius: 60px;
   position: relative;
-  margin-left: 20px; /* Spacing between the button and the mouse */
+  margin-left: 20px; 
 }
 
 .ButtonComponent .mouse::before {
