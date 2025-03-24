@@ -1,0 +1,144 @@
+.Overarching {
+  z-index: 3;
+  background-color: #070707;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px 46px;
+  margin-right: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  position: absolute;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(13.5px);
+  -webkit-backdrop-filter: blur(13.5px);
+  border-radius: 32px;
+  left: 60%; 
+  top: 20%; 
+  animation: panLeft 600ms cubic-bezier(0.070, 0.815, 0.190, 0.890) forwards;
+}
+
+.Overarching::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  /* background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);  */
+  pointer-events: none;
+}
+
+@keyframes spotlight {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(0%, 0%) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.Overarching .Header {
+  color: white;
+  font-family: Inter;
+  font-size: 30px;
+  padding-bottom: 18px;
+  animation: fadeInText 600ms cubic-bezier(0.070, 0.815, 0.190, 0.890) forwards;
+}
+
+.Overarching .Subtext {
+  color: white;
+  font-family: Inter;
+  font-size: 20px;
+  animation: fadeInText 600ms cubic-bezier(0.070, 0.815, 0.190, 0.890) forwards;
+  animation-delay: 100ms;
+  line-height: 1.5;
+  opacity: 0;
+}
+
+.Techstack {
+  padding-top: 44px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  animation: fadeInText 600ms cubic-bezier(0.070, 0.815, 0.190, 0.890) forwards;
+  animation-delay: 200ms;
+  opacity: 0;
+}
+
+.Techstack .Rectangle {
+  display: flex;
+  width: 150px;
+  height: 150px;
+  border-radius: 22px;
+  animation: fadeInText 600ms cubic-bezier(0.070, 0.815, 0.190, 0.890) forwards;
+  animation-delay: 300ms;
+  opacity: 0;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(13.5px);
+  -webkit-backdrop-filter: blur(13.5px);
+  border-radius: 10px;
+}
+
+.Overarching .link {
+  margin-top: 44px;
+  height: 54px;
+  width: 200px;
+  border-style: none;
+  border-radius: 30px;
+  color: #151515;
+  background-color: white;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 300ms ease-in;
+  animation: fadeInText 600ms cubic-bezier(0.070, 0.815, 0.190, 0.890) forwards;
+  animation-delay: 400ms;
+  opacity: 0;
+}
+
+.Overarching .link:hover {
+  border-radius: 42px;
+  background-color: #f0f0f0;
+}
+
+@keyframes fadeInText {
+  from {
+    transform: translateX(15px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes panLeft {
+  from {
+    transform: translateX(15px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+.Icon {
+  height: 88px;
+}
+
+.Overarching .glow-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255 , 255, 0.3), transparent 30%);
+  opacity: var(--opacity, 0);
+  transition: opacity 0.3s ease;
+  border-radius: 32px;
+}
