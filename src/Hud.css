@@ -20,15 +20,17 @@
 }
 
 .Hud .ColumnOne .BuildWithMe {
-  height: 60px;
-  width: 200px;
-  border-style: none;
-  border-radius: 30px;
+  height: 48px;
+  width: 175px ;
+  border-style: solid ;
+  border-radius: 12px;
+  border-color : rgba( 255 , 255 , 255 , 0.4);
+  border-width : 1px ; 
   color: white;
-  background-color: #151515;
+  background-color:  black ; 
   font-family: Inter, sans-serif; 
-  font-weight: 800;
-  font-size: 18px;
+  font-weight: 600;
+  font-size: 16px;
   margin: 36px;
   opacity: 1; 
   transform: translateY(0px); 
@@ -37,8 +39,8 @@
 }
 
 .Logo {
-  height: 60px;
-  margin: 36px;
+  height: 48px;
+  margin: 24px;
   opacity: 1; 
   transform: translateY(0px); 
   animation: fadeInTwo 2000ms cubic-bezier(0.070, 0.615, 0.235, 0.890) forwards;
