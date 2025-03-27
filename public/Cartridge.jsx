@@ -1,12 +1,16 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 import BezierEasing from 'bezier-easing';
-
 import Animation from '../src/assets/anims/Screen.mp4';
 
 const easing = BezierEasing(0.125, 0.545, 0.070, 0.910);
+
+// Utility function to get the correct path
+const getModelPath = (modelName) => {
+  return import.meta.env.BASE_URL + modelName;
+};
 
 export default function Cartridge({
   polarCoordinates = [-0.2, -0.2, 0],
@@ -14,49 +18,50 @@ export default function Cartridge({
   onClick,
   ...props
 }) {
-
-
-
-
+  const [modelLoaded, setModelLoaded] = useState(false);
+  
   useEffect(() => {
     console.log("polars changed");
   }, [polarCoordinates[0]]);
 
-  const { scene, nodes, materials } = useGLTF('./Test.glb');
+  const modelPath = getModelPath('Test.glb');
+  const { scene, nodes, materials } = useGLTF(modelPath);
+  
   const groupRef = useRef();
 
-
   useEffect(() => {
+    if (scene) {
+      setModelLoaded(true);
+    }
+    
     const video = document.createElement('video');
     video.src = Animation;
     video.crossOrigin = 'Anonymous';
     video.loop = true;
     video.muted = true;
     video.playsInline = true;
-
+    
     video.addEventListener('canplaythrough', () => {
       video.play();
     });
-
+    
     video.addEventListener('play', () => {
       const texture = new THREE.VideoTexture(video);
       texture.needsUpdate = true;
-
-      // Apply the video texture to the specific mesh material
-      const targetMesh = nodes['GB_02_low_Screen']; // The name of your mesh
+      
+      const targetMesh = nodes['GB_02_low_Screen'];
       if (targetMesh) {
         targetMesh.material.map = texture;
         targetMesh.material.needsUpdate = true;
       }
     });
-
-    // Clean up
+    
     return () => {
       video.pause();
       video.src = '';
       video.load();
     };
-  }, [nodes]);
+  }, [nodes, scene]);
 
   const { position, rotation } = useSpring({
     from: { position: [-0.2, -4, 0], rotation: [-0.8, 1, -0.3] },
@@ -65,10 +70,12 @@ export default function Cartridge({
       rotation: rotationalCoordinates
     },
     config: {
-      duration: 2000 , // Use the isUsed function to determine the duration
+      duration: 2000,
       easing: t => easing(t)
     }
   });
+
+  if (!modelLoaded) return null;
 
   return (
     <animated.primitive
@@ -81,4 +88,9 @@ export default function Cartridge({
   );
 }
 
-useGLTF.preload('./Test.glb');
+// Preload the model
+try {
+  useGLTF.preload(getModelPath('Test.glb'));
+} catch (error) {
+  console.error('Error preloading model:', error);
+}

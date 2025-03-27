@@ -1,19 +1,13 @@
-import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
-import Cartridge from '../public/Cartridge.jsx'; // Import your GLB loader component
-import Game from '../public/Game.jsx'; // Import your GLB loader component
-import GameTwo from '../public/GameTwo.jsx'; // Import your GLB loader component
+import Cartridge from '../public/Cartridge.jsx';
 import { Bloom, EffectComposer } from '@react-three/postprocessing';
 import Animation from './components/Animation.jsx';
-import ButtonComponent from './ButtonComponent.jsx';
 import DescriptionComponent from '../public/DescriptionComponent.jsx';
 import Hud from './Hud.jsx';
 
 import './App.css';
-
-const GameComponent = React.memo(Game);
-const GameTwoComponent = React.memo(GameTwo);
 
 function App() {
   const [showAnimation, setShowAnimation] = useState(true);
@@ -36,11 +30,6 @@ function App() {
     window.addEventListener('wheel', wheelDown);
     return () => window.removeEventListener('wheel', wheelDown);
   }, []);
-
-  const componentMap = {
-    0: GameTwoComponent,
-    1: GameComponent
-  };
 
   const possiblePolars = {
     0: [-0.2, -0.2, 0],
@@ -70,9 +59,9 @@ function App() {
   const wheelDown = useCallback(() => {
     setTimeout(() => {
       internalCountWheel.current++;
-      setDynamicComponent(internalCountWheel.current % Object.keys(componentMap).length);
+      setDynamicComponent(internalCountWheel.current % 2);
     }, 0);
-  }, [componentMap]);
+  }, []);
 
   const handleClick = useCallback(() => {
     polarInternalCount.current++;
@@ -94,7 +83,6 @@ function App() {
         setCartridgePos(possiblePolarsCartridge[cartidgeInternalCount.current % Object.keys(possiblePolarsCartridge).length]);
         setRotation(possibleRotations[rotationalInternalCount.current % Object.keys(possibleRotations).length]);
         setRotationCartridge(possibleRotationsCartridge[rotationalInternalCount.current % Object.keys(possibleRotationsCartridge).length]);
-        // setColor('radial-gradient(#250303, #000000)');
         setColor('black');
       }, 500);
       setTimeout(() => {
@@ -103,39 +91,33 @@ function App() {
     }
   }, [showDescription]);
 
-  const DynamicComponent = componentMap[dynamicComponent];
-
-
   return (
-
-      <div className="App" style={{ background: color }}>
-        <Animation width='600px' onComplete={handleAnimationComplete} />
-        {!showAnimation && <Hud />}
-        {!showAnimation && (
-          <div className='Canvas'>
-            <Canvas>
-              <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={50} />
-              <ambientLight intensity={0.1} />
-              <directionalLight position={[-2, 2, -2]} intensity={8} castShadow />
-              <directionalLight position={[1, 0, -1]} intensity={4} castShadow />
-              <directionalLight position={[1, 1, -1]} intensity={1} castShadow />
-              <pointLight position={[10, 10, 10]} intensity={1} decay={2} distance={50} />
-              <spotLight position={[0, 10, 0]} angle={0.2} penumbra={1} intensity={1} castShadow />
-              <OrbitControls enablePan={false} enableRotate={false} enableDamping={false} enableZoom={false} />
-              <Cartridge polarCoordinates={polars} rotationalCoordinates={rotation} />
-              {DynamicComponent && <DynamicComponent key={dynamicComponent} coordinates={cartridgePos} rotationalCoordinates={rotationCartridge} />}
-              <EffectComposer>
-                <Bloom luminanceThreshold={0.3} luminanceSmoothing={0.9} height={400} />
-              </EffectComposer>
-            </Canvas>
-            <div className='Button-Container'>
-              <button onClick={handleClick} className='SwapCart'> Project Details </button>
-            </div>
-            {!showAnimation && showDescription && <DescriptionComponent value={dynamicComponent}/>}
+    <div className="App" style={{ background: color }}>
+      <Animation width='600px' onComplete={handleAnimationComplete} />
+      {!showAnimation && <Hud />}
+      {!showAnimation && (
+        <div className='Canvas'>
+          <Canvas>
+            <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={50} />
+            <ambientLight intensity={0.1} />
+            <directionalLight position={[-2, 2, -2]} intensity={8} castShadow />
+            <directionalLight position={[1, 0, -1]} intensity={4} castShadow />
+            <directionalLight position={[1, 1, -1]} intensity={1} castShadow />
+            <pointLight position={[10, 10, 10]} intensity={1} decay={2} distance={50} />
+            <spotLight position={[0, 10, 0]} angle={0.2} penumbra={1} intensity={1} castShadow />
+            <OrbitControls enablePan={false} enableRotate={false} enableDamping={false} enableZoom={false} />
+            <Cartridge polarCoordinates={polars} rotationalCoordinates={rotation} />
+            <EffectComposer>
+              <Bloom luminanceThreshold={0.3} luminanceSmoothing={0.9} height={400} />
+            </EffectComposer>
+          </Canvas>
+          <div className='Button-Container'>
+            <button onClick={handleClick} className='SwapCart'> Project Details </button>
           </div>
-        )}
-      </div>
-
+          {!showAnimation && showDescription && <DescriptionComponent value={dynamicComponent}/>}
+        </div>
+      )}
+    </div>
   );
 }
 

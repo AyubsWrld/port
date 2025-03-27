@@ -1,31 +1,38 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
+import * as THREE from 'three';
 import BezierEasing from 'bezier-easing';
 
-
-const easing = BezierEasing(0.125, 0.545, 0.070, 0.910);
-
 export default function GameTwo(props) {
-  const { scene } = useGLTF('./CardtrigeTwo.glb'); 
+  const [modelLoaded, setModelLoaded] = useState(false);
+  const [error, setError] = useState(null);
 
+  const modelPath = getModelPath('CardtrigeTwo.glb');
+  
+  const { scene } = useGLTF(modelPath, true, (loader) => {
+    loader.crossOrigin = 'anonymous';
+  });
 
-
-  const [hovered, setHovered] = useState(false);
-  const [clicked, setClicked] = useState(false);
-
+  useEffect(() => {
+    if (scene) {
+      setModelLoaded(true);
+    }
+  }, [scene]);
 
   const { position, rotation } = useSpring({
     from: { position: [-10, 4, -0.5], rotation: [-0.8, 4, -0.3] },
     to: { 
-      position: props.coordinates,
-      rotation: props.rotationalCoordinates  
+      position: props.coordinates || [-10, 4, -0.5],
+      rotation: props.rotationalCoordinates || [-0.8, 4, -0.3]
     },
     config: {
-      duration: 2000, // Use the isUsed function to determine the duration
+      duration: 2000,
       easing: t => easing(t)
     }
   });
+
+  if (!modelLoaded) return null;
 
   return (
     <animated.primitive
@@ -37,4 +44,8 @@ export default function GameTwo(props) {
   );
 }
 
-useGLTF.preload('./CardtrigeTwo.glb'); // Ensure the path is correct
+try {
+  useGLTF.preload(getModelPath('CartridgeTwo.glb'));
+} catch (error) {
+  console.error('Error preloading models:', error);
+}
