@@ -16,47 +16,25 @@ export default function Cartridge({
 }) {
 
 
-
-
-  useEffect(() => {
-    console.log("polars changed");
-  }, [polarCoordinates[0]]);
-
   const { scene, nodes, materials } = useGLTF('./Test.glb');
   const groupRef = useRef();
 
 
   useEffect(() => {
-    const video = document.createElement('video');
-    video.src = Animation;
-    video.crossOrigin = 'Anonymous';
-    video.loop = true;
-    video.muted = true;
-    video.playsInline = true;
+    console.log("polars changed");
+    console.log( nodes );
+  }, [polarCoordinates[0]]);
 
-    video.addEventListener('canplaythrough', () => {
-      video.play();
-    });
-
-    video.addEventListener('play', () => {
-      const texture = new THREE.VideoTexture(video);
-      texture.needsUpdate = true;
-
-      // Apply the video texture to the specific mesh material
-      const targetMesh = nodes['GB_02_low_Screen']; // The name of your mesh
-      if (targetMesh) {
-        targetMesh.material.map = texture;
-        targetMesh.material.needsUpdate = true;
-      }
-    });
-
-    // Clean up
-    return () => {
-      video.pause();
-      video.src = '';
-      video.load();
-    };
-  }, [nodes]);
+  useEffect(() => {
+    const targetMesh = nodes['GB_03_low_ButtonMovement']; 
+    if (targetMesh) {
+      console.log('Mesh exists');
+      targetMesh.material.color.set(0xff0000); 
+      targetMesh.material.needsUpdate = true;
+    } else {
+      console.log('Mesh absent');
+    }
+  }, []);
 
   const { position, rotation } = useSpring({
     from: { position: [-0.2, -4, 0], rotation: [-0.8, 1, -0.3] },

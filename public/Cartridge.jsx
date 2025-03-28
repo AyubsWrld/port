@@ -3,11 +3,10 @@ import { useGLTF } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 import BezierEasing from 'bezier-easing';
-import Animation from '../src/assets/anims/Screen.mp4';
+import Animation from '../src/assets/anims/Flipped.mp4';
 
 const easing = BezierEasing(0.125, 0.545, 0.070, 0.910);
 
-// Utility function to get the correct path
 const getModelPath = (modelName) => {
   return import.meta.env.BASE_URL + modelName;
 };
@@ -22,12 +21,14 @@ export default function Cartridge({
   
   useEffect(() => {
     console.log("polars changed");
+    const materialTest = new THREE.MeshBasicMaterial() ; 
+    nodes['GB_02_low_Screen'].material= materialTest  ; 
   }, [polarCoordinates[0]]);
 
   const modelPath = getModelPath('Test.glb');
   const { scene, nodes, materials } = useGLTF(modelPath);
-  
   const groupRef = useRef();
+
 
   useEffect(() => {
     if (scene) {
@@ -40,6 +41,12 @@ export default function Cartridge({
     video.loop = true;
     video.muted = true;
     video.playsInline = true;
+    video.style.filter = 'saturate(0)';
+
+    console.log(video.height);
+    console.log(video.width );
+    console.log(video);
+
     
     video.addEventListener('canplaythrough', () => {
       video.play();
@@ -48,10 +55,14 @@ export default function Cartridge({
     video.addEventListener('play', () => {
       const texture = new THREE.VideoTexture(video);
       texture.needsUpdate = true;
-      
+
       const targetMesh = nodes['GB_02_low_Screen'];
       if (targetMesh) {
         targetMesh.material.map = texture;
+        targetMesh.material.map.offset.set( -1.63 ,  -1.95 ) ; 
+        targetMesh.material.map.repeat.set( 4.4 ,  4.4 ) ; 
+        targetMesh.material.map.center.set( 0 ,  0 ) ; 
+        targetMesh.material.map.flipY = true ;
         targetMesh.material.needsUpdate = true;
       }
     });
