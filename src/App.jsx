@@ -63,33 +63,38 @@ function App() {
     }, 0);
   }, []);
 
-  const handleClick = useCallback(() => {
-    polarInternalCount.current++;
-    cartidgeInternalCount.current++;
-    setPolars(possiblePolars[polarInternalCount.current % Object.keys(possiblePolars).length]);
-    setCartridgePos(possiblePolarsCartridge[cartidgeInternalCount.current % Object.keys(possiblePolarsCartridge).length]);
+  // Old handle click logic which changes polars of the device  
+  // const handleClick = useCallback(() => {
+  //   polarInternalCount.current++;
+  //   cartidgeInternalCount.current++;
+  //   setPolars(possiblePolars[polarInternalCount.current % Object.keys(possiblePolars).length]);
+  //   setCartridgePos(possiblePolarsCartridge[cartidgeInternalCount.current % Object.keys(possiblePolarsCartridge).length]);
+  //
+  //   if (showDescription) {
+  //     rotationalInternalCount.current++;
+  //     setRotation(possibleRotations[rotationalInternalCount.current % Object.keys(possibleRotations).length]);
+  //     setRotationCartridge(possibleRotationsCartridge[rotationalInternalCount.current % Object.keys(possibleRotationsCartridge).length]);
+  //     setShowDescription(false);
+  //   } else {
+  //     setTimeout(() => {
+  //       rotationalInternalCount.current++;
+  //       polarInternalCount.current++;
+  //       cartidgeInternalCount.current++;
+  //       setPolars(possiblePolars[polarInternalCount.current % Object.keys(possiblePolars).length]);
+  //       setCartridgePos(possiblePolarsCartridge[cartidgeInternalCount.current % Object.keys(possiblePolarsCartridge).length]);
+  //       setRotation(possibleRotations[rotationalInternalCount.current % Object.keys(possibleRotations).length]);
+  //       setRotationCartridge(possibleRotationsCartridge[rotationalInternalCount.current % Object.keys(possibleRotationsCartridge).length]);
+  //       setColor('black');
+  //     }, 500);
+  //     setTimeout(() => {
+  //       setShowDescription(true);
+  //     }, 500);
+  //   }
+  // }, [showDescription]);
 
-    if (showDescription) {
-      rotationalInternalCount.current++;
-      setRotation(possibleRotations[rotationalInternalCount.current % Object.keys(possibleRotations).length]);
-      setRotationCartridge(possibleRotationsCartridge[rotationalInternalCount.current % Object.keys(possibleRotationsCartridge).length]);
-      setShowDescription(false);
-    } else {
-      setTimeout(() => {
-        rotationalInternalCount.current++;
-        polarInternalCount.current++;
-        cartidgeInternalCount.current++;
-        setPolars(possiblePolars[polarInternalCount.current % Object.keys(possiblePolars).length]);
-        setCartridgePos(possiblePolarsCartridge[cartidgeInternalCount.current % Object.keys(possiblePolarsCartridge).length]);
-        setRotation(possibleRotations[rotationalInternalCount.current % Object.keys(possibleRotations).length]);
-        setRotationCartridge(possibleRotationsCartridge[rotationalInternalCount.current % Object.keys(possibleRotationsCartridge).length]);
-        setColor('black');
-      }, 500);
-      setTimeout(() => {
-        setShowDescription(true);
-      }, 500);
-    }
-  }, [showDescription]);
+  const handleClick = () => {
+    console.log('handleClick invoked') ;
+  }
 
   return (
     <div className="App" style={{ background: color }}>
