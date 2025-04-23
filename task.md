@@ -1,0 +1,6 @@
+- [ ] Swapping videos
+ - [ ] Get character 
+ - [ ] Pointer in Video array 
+ - [ ] Check bounds 
+ - [ ] Update texture to map to video 
+ - [ ] Repeat

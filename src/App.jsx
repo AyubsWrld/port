@@ -16,11 +16,14 @@ function App() {
   const [rotationCartridge, setRotationCartridge] = useState([-0.5, 0.3, 0.3]);
   const [showDescription, setShowDescription] = useState(false);
   const [color, setColor] = useState('black');
+  const [selectedProject, SetSelectedProject] = useState(0);
 
-  const polarInternalCount = useRef(0);
-  const internalCountWheel = useRef(0);
-  const cartidgeInternalCount = useRef(0);
-  const rotationalInternalCount = useRef(0);
+  const polarInternalCount       =          useRef(0);
+  const internalCountWheel       =          useRef(0);
+  const cartidgeInternalCount    =          useRef(0);
+  const rotationalInternalCount  =          useRef(0);
+
+  const ProjectArrayLength       =          2        ;  // This is the number of projects I have later pretty shtty but we move. 
 
   const handleAnimationComplete = () => {
     setShowAnimation(false);
@@ -63,37 +66,10 @@ function App() {
     }, 0);
   }, []);
 
-  // Old handle click logic which changes polars of the device  
-  // const handleClick = useCallback(() => {
-  //   polarInternalCount.current++;
-  //   cartidgeInternalCount.current++;
-  //   setPolars(possiblePolars[polarInternalCount.current % Object.keys(possiblePolars).length]);
-  //   setCartridgePos(possiblePolarsCartridge[cartidgeInternalCount.current % Object.keys(possiblePolarsCartridge).length]);
-  //
-  //   if (showDescription) {
-  //     rotationalInternalCount.current++;
-  //     setRotation(possibleRotations[rotationalInternalCount.current % Object.keys(possibleRotations).length]);
-  //     setRotationCartridge(possibleRotationsCartridge[rotationalInternalCount.current % Object.keys(possibleRotationsCartridge).length]);
-  //     setShowDescription(false);
-  //   } else {
-  //     setTimeout(() => {
-  //       rotationalInternalCount.current++;
-  //       polarInternalCount.current++;
-  //       cartidgeInternalCount.current++;
-  //       setPolars(possiblePolars[polarInternalCount.current % Object.keys(possiblePolars).length]);
-  //       setCartridgePos(possiblePolarsCartridge[cartidgeInternalCount.current % Object.keys(possiblePolarsCartridge).length]);
-  //       setRotation(possibleRotations[rotationalInternalCount.current % Object.keys(possibleRotations).length]);
-  //       setRotationCartridge(possibleRotationsCartridge[rotationalInternalCount.current % Object.keys(possibleRotationsCartridge).length]);
-  //       setColor('black');
-  //     }, 500);
-  //     setTimeout(() => {
-  //       setShowDescription(true);
-  //     }, 500);
-  //   }
-  // }, [showDescription]);
-
+  // TODO: Add error bounding later 
+  // We can change this to handle scroll so we can increment/decrement or tbh we can just % and wrap. 
   const handleClick = () => {
-    console.log('handleClick invoked') ;
+    SetSelectedProject( selectedProject + 1 ) ; 
   }
 
   return (
@@ -111,7 +87,7 @@ function App() {
             <pointLight position={[10, 10, 10]} intensity={1} decay={2} distance={50} />
             <spotLight position={[0, 10, 0]} angle={0.2} penumbra={1} intensity={1} castShadow />
             <OrbitControls enablePan={false} enableRotate={false} enableDamping={false} enableZoom={false} />
-            <Cartridge polarCoordinates={polars} rotationalCoordinates={rotation} />
+            <Cartridge polarCoordinates={polars} rotationalCoordinates={rotation} selectedProject={ selectedProject }/>
             <EffectComposer>
               <Bloom luminanceThreshold={0.3} luminanceSmoothing={0.9} height={400} />
             </EffectComposer>
