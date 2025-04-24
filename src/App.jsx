@@ -10,6 +10,43 @@ import Hud from './Hud.jsx';
 import './App.css';
 
 function App() {
+
+  //----------------------------------------------------- TODO: ------------------------------------------------------- 
+  
+  //const Epsilon = 0.0250 ; // Play around with this for more granularity.
+  //const ThresholdX = 0.5725 ;
+  //const ThresholdY = 0.4300 ; 
+
+
+  // Can noramlize this to just be in between 
+  //document.addEventListener( 'click', ( event ) => {
+
+     // const NormalizedY =  event.clientY / window.innerHeight  ; 
+     // const NormalizedX =  event.clientX / window.innerWidth   ; 
+
+    // if( 
+    //   ( NormalizedX <= ThresholdX + Epsilon)
+    //   && (NormalizedX > ThresholdX - Epsilon)
+    //   && (NormalizedY <= ThresholdY + Epsilon)
+    //   && (NormalizedY > ThresholdY - Epsilon)
+    // )
+
+  //   if( 
+  //     ( NormalizedX <= 0.480 )
+  //     && (NormalizedX > 0.440)
+  //     && (NormalizedY <= 0.650 )
+  //     && (NormalizedY > 0.550 )
+  //   )
+  //   {
+  //     console.log( ' Use did presss one of the buttons ' ) ; 
+  //   }
+  //
+  //   console.log(`Normalized: [${NormalizedX} , ${NormalizedY}] `);
+  //
+  // });
+  
+  //----------------------------------------------------- TODO: -------------------------------------------------------
+
   const [showAnimation, setShowAnimation] = useState(true);
   const [polars, setPolars] = useState([-0.2, -0.2, 0]);
   const [rotation, setRotation] = useState([-0.5, 0.3, 0.3]);

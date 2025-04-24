@@ -3,14 +3,14 @@ import { useGLTF } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 import BezierEasing from 'bezier-easing';
-import StartScreen from '../src/assets/anims/Flipped.mp4';
+import StartScreen from '../src/assets/anims/IntroductionGB.mp4';
 import ProjectOne from '../src/assets/anims/Resized.mp4';
 
 const UriToVideoTexture = ( source ) => 
 {
   const video =  document.createElement( 'video' ) ; 
   video.src = source  ;
-  video.loop = true ; 
+  video.loop = false ; 
   video.muted = true ; ; 
   video.crossOrigin = false ;  // Why is this needed frl 
   video.playsInline = true;
@@ -27,6 +27,7 @@ const VideoURIs = [
 ]
 
 const VideoTexturesArray = new Array() ; 
+
 
 const getModelPath = (modelName) => {
   // Base url the app is being served from. 
@@ -103,7 +104,7 @@ export default function Cartridge({
     // These just change the tag attributes 
     video.src = StartScreen ; 
     video.crossOrigin = 'Anonymous';
-    video.loop = true;
+    video.loop = false ;
     video.muted = true;
     video.playsInline = true;
     video.style.filter = 'saturate(0)';
@@ -123,10 +124,10 @@ export default function Cartridge({
       // Get the Mesh we want to apply the video to  
       if (targetMesh) {
         targetMesh.material.map = texture; // is this a reference to ? 
-        targetMesh.material.map.offset.set( -1.63 ,  -1.95 ) ; 
-        targetMesh.material.map.repeat.set( 4.4 ,  4.4 ) ; 
+        targetMesh.material.map.offset.set( -2.37 ,  -2.9 ) ; 
+        targetMesh.material.map.repeat.set( 5.9 ,   5.9 ) ; 
         targetMesh.material.map.center.set( 0 ,  0 ) ; 
-        targetMesh.material.map.flipY = true ; // Why tf is this set to true 
+        targetMesh.material.map.flipY = false; // Why tf is this set to true 
         targetMesh.material.needsUpdate = true;
       }else{
         console.error( "Could not load screen mesh" ) ;
@@ -147,7 +148,7 @@ export default function Cartridge({
     targetMesh.material.map.offset.set( -1.63 ,  -1.95 ) ; 
     targetMesh.material.map.repeat.set( 4.4 ,  4.4 ) ; 
     targetMesh.material.map.center.set( 0 ,  0 ) ; 
-    targetMesh.material.map.flipY = true ; // Why tf is this set to true 
+    targetMesh.material.map.flipY = false ; // Why tf is this set to true 
     targetMesh.material.needsUpdate = true;
     console.log('selectedProject' )
   } , [ selectedProject ]
