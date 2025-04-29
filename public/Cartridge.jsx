@@ -3,8 +3,10 @@ import { useGLTF } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 import BezierEasing from 'bezier-easing';
-import StartScreen from '../src/assets/anims/IntroductionGB.mp4';
-import ProjectOne from '../src/assets/anims/Resized.mp4';
+import StartScreen from '../src/assets/anims/Flipped_1.mp4';
+import ProjectOne from '../src/assets/anims/ProjectOne.mp4';
+import ProjectTwo from '../src/assets/anims/ProjectTwo.mp4';
+import ProjectThree from '../src/assets/anims/ProjectThree.mp4';
 
 const UriToVideoTexture = ( source ) => 
 {
@@ -22,8 +24,9 @@ const UriToVideoTexture = ( source ) =>
 
 // This context has to be provided in the app which is kinda shtty 
 const VideoURIs = [
-  StartScreen,
-  ProjectOne
+  ProjectOne,
+  ProjectTwo,
+  ProjectThree,
 ]
 
 const VideoTexturesArray = new Array() ; 
@@ -42,12 +45,12 @@ export default function Cartridge({
   rotationalCoordinates,
   onClick,
   selectedProject,
+  isStartScreenLoading,
   ...props
 }) {
 
-  var texture;  // Global scope this so we can change it later 
+  var texture;  // Global scope this so we can change it later  Dont really need this anymore tbh ; 
   const easing = BezierEasing(0.125, 0.545, 0.070, 0.910);
-
   // Create the HTML element to be used within setting the texture value.
   // <video> </video>  <- basically all it does.
   const video = document.createElement('video'); // Keep this function scoped 
@@ -60,6 +63,7 @@ export default function Cartridge({
       VideoTexturesArray.push( UriToVideoTexture( element ) ) ; 
     })
   }, []) ;
+
 
 
   // Max array length, I js do this to avoid magic numbers. ( Although VideoTexturesArray.length() is pretty descriptive )
@@ -142,14 +146,20 @@ export default function Cartridge({
   }, [ nodes, scene ]);
 
   useEffect( () => {
-
-    //TODO: Move this into a function of its own and call it in setup.
-    targetMesh.material.map = VideoTexturesArray[ selectedProject % VideoTexturesArray.length ] ; 
-    targetMesh.material.map.offset.set( -1.63 ,  -1.95 ) ; 
-    targetMesh.material.map.repeat.set( 4.4 ,  4.4 ) ; 
-    targetMesh.material.map.center.set( 0 ,  0 ) ; 
-    targetMesh.material.map.flipY = false ; // Why tf is this set to true 
-    targetMesh.material.needsUpdate = true;
+    if( !isStartScreenLoading ) 
+    {
+      try {
+        targetMesh.material.map = VideoTexturesArray[ selectedProject % VideoTexturesArray.length] ;
+        targetMesh.material.map.offset.set( -2.37 ,  -2.9 ) ; 
+        targetMesh.material.map.repeat.set( 5.9 ,   5.9 ) ; 
+        targetMesh.material.map.center.set( 0 ,  0 ) ; 
+        targetMesh.material.map.flipY = false; // Why tf is this set to true 
+        targetMesh.material.needsUpdate = true;
+      } catch (e) {
+        console.error(`Error occured while setting the mesh : ${e}`) ;
+      }
+    }
+    console.log(isStartScreenLoading) ;
     console.log('selectedProject' )
   } , [ selectedProject ]
   );

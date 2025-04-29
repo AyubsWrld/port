@@ -54,6 +54,7 @@ function App() {
   const [showDescription, setShowDescription] = useState(false);
   const [color, setColor] = useState('black');
   const [selectedProject, SetSelectedProject] = useState(0);
+  const [ startScreenLoading, setStartScreenLoading]  = useState(true);  // Use state for the gameboy's video 'loading'.
 
   const polarInternalCount       =          useRef(0);
   const internalCountWheel       =          useRef(0);
@@ -70,6 +71,10 @@ function App() {
     window.addEventListener('wheel', wheelDown);
     return () => window.removeEventListener('wheel', wheelDown);
   }, []);
+
+  setTimeout( () => {
+    setStartScreenLoading( false ) ;
+  }, 4500 );
 
   const possiblePolars = {
     0: [-0.2, -0.2, 0],
@@ -124,7 +129,7 @@ function App() {
             <pointLight position={[10, 10, 10]} intensity={1} decay={2} distance={50} />
             <spotLight position={[0, 10, 0]} angle={0.2} penumbra={1} intensity={1} castShadow />
             <OrbitControls enablePan={false} enableRotate={false} enableDamping={false} enableZoom={false} />
-            <Cartridge polarCoordinates={polars} rotationalCoordinates={rotation} selectedProject={ selectedProject }/>
+            <Cartridge polarCoordinates={polars} rotationalCoordinates={rotation} selectedProject={ selectedProject } isStartScreenLoading={startScreenLoading} />
             <EffectComposer>
               <Bloom luminanceThreshold={0.3} luminanceSmoothing={0.9} height={400} />
             </EffectComposer>
