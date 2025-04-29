@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
-  "homepage": "https://github.com/AyubsWrld/capocantcode.io",
+  "homepage": "https://AyubsWrld.github.io/capocantcode.io/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
