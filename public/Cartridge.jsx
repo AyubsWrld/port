@@ -33,9 +33,6 @@ const VideoTexturesArray = new Array() ;
 
 
 const getModelPath = (modelName) => {
-  // Base url the app is being served from. 
-  // All requested files are "Served relative to this directory"
-  // This returns our base directory + our models names, assumes model is within base directory 
   return import.meta.env.BASE_URL + modelName; 
 };
 
@@ -64,8 +61,6 @@ export default function Cartridge({
     })
   }, []) ;
 
-
-
   // Max array length, I js do this to avoid magic numbers. ( Although VideoTexturesArray.length() is pretty descriptive )
   const VIDEO_ARRAY_SIZE = VideoTexturesArray.length ;
   const [modelLoaded, setModelLoaded] = useState(false);
@@ -87,10 +82,6 @@ export default function Cartridge({
 
 
   // 
-  buttonMesh.addEventListener( 'customEvent' , (event) => { 
-    console.log('eventFired: ', event ) ;
-  });
-
   buttonMesh.dispatchEvent( { type : 'customEvent' } ); // called twice ? 
 
   const groupRef = useRef();
@@ -160,8 +151,7 @@ export default function Cartridge({
       }
     }
     console.log(isStartScreenLoading) ;
-    console.log('selectedProject' )
-  } , [ selectedProject ]
+  } , [ selectedProject.current ]
   );
 
   const { position, rotation } = useSpring({
@@ -195,3 +185,4 @@ try {
 } catch (error) {
   console.error('Error preloading model:', error);
 }
+
