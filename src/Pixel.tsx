@@ -27,10 +27,10 @@ export default function Pixel()
     y: 0.1,
     z: 1.6 
   }
-  const gui = new GUI() ; 
-  gui.add(light, 'x' , -100, 100)
-  gui.add(light, 'y' , -100, 100)
-  gui.add(light, 'z' , -100, 100)
+  //const gui = new GUI() ; 
+  //gui.add(light, 'x' , -100, 100)
+  //gui.add(light, 'y' , -100, 100)
+  //gui.add(light, 'z' , -100, 100)
 
   useEffect(() => {
     async function loadScene() {
