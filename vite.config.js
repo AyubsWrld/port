@@ -5,5 +5,16 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/capocantcode.io/',
+  optimizeDeps: {
+    include: [
+      '@react-spring/three',
+      '@react-spring/core',
+      '@react-spring/web',
+      'three'
+    ],
+  },
+  resolve: {
+    dedupe: ['react', 'react-dom', 'three'],
+  },
   //base: '/'
 })
